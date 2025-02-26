@@ -223,6 +223,7 @@ static u64 analyze_run_target(u8 *mem, u32 len, u8 first_run) {
   }
 
   classify_counts(fsrv.trace_bits);
+  total_execs++;
 
   if (stop_soon) {
 

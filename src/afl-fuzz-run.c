@@ -67,7 +67,7 @@ fuzz_run_target(afl_state_t *afl, afl_forkserver_t *fsrv, u32 timeout) {
   u64 t2 = get_cur_time_us();
   u64 exec_time_cur = t2 - t1;
   afl->last_exec_time = t2;
-  fsrv->total_execs++;
+
   afl->exec_time += exec_time_cur;
   afl->fuzz_time += fuzz_time_cur;
   if (unlikely(afl->exec_time_short + afl->fuzz_time_short >

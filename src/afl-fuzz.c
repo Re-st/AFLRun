@@ -2881,21 +2881,16 @@ stop_fuzzing:
   ck_free(profile_file);
   if (fd == NULL)
     FATAL("Cannot open profiling file");
-  fprintf(fd, "%llums %lluexec %lu "
+  fprintf(fd, "%llu %llu %lu "
   #ifdef AFLRUN_OVERHEAD
         "%0.02f%% "
   #endif // AFLRUN_OVERHEAD
-        "fuzz %llums exec %llums %0.02fus/exec %0.02f%%\n",
-        time_spent_working / 1000000,
-        afl->fsrv.total_execs,
-        aflrun_get_num_clusters(),
+        "%0.02f%%\n",
+        time_spent_working, afl->fsrv.total_execs, aflrun_get_num_clusters(),
   #ifdef AFLRUN_OVERHEAD
       (double)afl->fsrv.trace_virgin->overhead * 100 /
       (afl->exec_time + afl->fuzz_time),
   #endif // AFLRUN_OVERHEAD
-      afl->fuzz_time / 1000,
-      afl->exec_time / 1000,
-      (double)afl->exec_time / afl->fsrv.total_execs / 1000,
       (double)afl->exec_time * 100 /
         (afl->exec_time + afl->fuzz_time));
   fclose(fd);
