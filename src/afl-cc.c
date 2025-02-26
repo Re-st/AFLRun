@@ -559,176 +559,176 @@ static void edit_params(u32 argc, char **argv, char **envp) {
 
   }
 
-  // if (compiler_mode == GCC || compiler_mode == CLANG) {
+  if (compiler_mode == GCC || compiler_mode == CLANG) {
 
-  //   cc_params[cc_par_cnt++] = "-B";
-  //   cc_params[cc_par_cnt++] = obj_path;
+    cc_params[cc_par_cnt++] = "-B";
+    cc_params[cc_par_cnt++] = obj_path;
 
-  //   if (clang_mode || compiler_mode == CLANG) {
+    if (clang_mode || compiler_mode == CLANG) {
 
-  //     cc_params[cc_par_cnt++] = "-no-integrated-as";
+      cc_params[cc_par_cnt++] = "-no-integrated-as";
 
-  //   }
+    }
 
-  // }
+  }
 
-  // if (compiler_mode == GCC_PLUGIN) {
+  if (compiler_mode == GCC_PLUGIN) {
 
-  //   char *fplugin_arg;
+    char *fplugin_arg;
 
-  //   if (cmplog_mode) {
+    if (cmplog_mode) {
 
-  //     fplugin_arg =
-  //         alloc_printf("-fplugin=%s/afl-gcc-cmplog-pass.so", obj_path);
-  //     cc_params[cc_par_cnt++] = fplugin_arg;
-  //     fplugin_arg =
-  //         alloc_printf("-fplugin=%s/afl-gcc-cmptrs-pass.so", obj_path);
-  //     cc_params[cc_par_cnt++] = fplugin_arg;
+      fplugin_arg =
+          alloc_printf("-fplugin=%s/afl-gcc-cmplog-pass.so", obj_path);
+      cc_params[cc_par_cnt++] = fplugin_arg;
+      fplugin_arg =
+          alloc_printf("-fplugin=%s/afl-gcc-cmptrs-pass.so", obj_path);
+      cc_params[cc_par_cnt++] = fplugin_arg;
 
-  //   }
+    }
 
-  //   fplugin_arg = alloc_printf("-fplugin=%s/afl-gcc-pass.so", obj_path);
-  //   cc_params[cc_par_cnt++] = fplugin_arg;
-  //   cc_params[cc_par_cnt++] = "-fno-if-conversion";
-  //   cc_params[cc_par_cnt++] = "-fno-if-conversion2";
+    fplugin_arg = alloc_printf("-fplugin=%s/afl-gcc-pass.so", obj_path);
+    cc_params[cc_par_cnt++] = fplugin_arg;
+    cc_params[cc_par_cnt++] = "-fno-if-conversion";
+    cc_params[cc_par_cnt++] = "-fno-if-conversion2";
 
-  // }
+  }
 
   if (compiler_mode == LLVM || compiler_mode == LTO) {
 
-//     cc_params[cc_par_cnt++] = "-Wno-unused-command-line-argument";
+    cc_params[cc_par_cnt++] = "-Wno-unused-command-line-argument";
 
-//     if (lto_mode && have_instr_env) {
+    if (lto_mode && have_instr_env) {
 
-// #if LLVM_MAJOR >= 11                                /* use new pass manager */
-//   #if LLVM_MAJOR < 16
-//       cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
-//   #endif
-//       cc_params[cc_par_cnt++] = alloc_printf(
-//           "-fpass-plugin=%s/afl-llvm-lto-instrumentlist.so", obj_path);
-// #else
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] = "-load";
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("%s/afl-llvm-lto-instrumentlist.so", obj_path);
-// #endif
+#if LLVM_MAJOR >= 11                                /* use new pass manager */
+  #if LLVM_MAJOR < 16
+      cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
+  #endif
+      cc_params[cc_par_cnt++] = alloc_printf(
+          "-fpass-plugin=%s/afl-llvm-lto-instrumentlist.so", obj_path);
+#else
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] = "-load";
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("%s/afl-llvm-lto-instrumentlist.so", obj_path);
+#endif
 
-//     }
+    }
 
-//     if (getenv("AFL_LLVM_DICT2FILE")) {
+    if (getenv("AFL_LLVM_DICT2FILE")) {
 
-// #if LLVM_MAJOR >= 11                                /* use new pass manager */
-//   #if LLVM_MAJOR < 16
-//       cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
-//   #endif
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("-fpass-plugin=%s/afl-llvm-dict2file.so", obj_path);
-// #else
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] = "-load";
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("%s/afl-llvm-dict2file.so", obj_path);
-// #endif
+#if LLVM_MAJOR >= 11                                /* use new pass manager */
+  #if LLVM_MAJOR < 16
+      cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
+  #endif
+      cc_params[cc_par_cnt++] =
+          alloc_printf("-fpass-plugin=%s/afl-llvm-dict2file.so", obj_path);
+#else
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] = "-load";
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("%s/afl-llvm-dict2file.so", obj_path);
+#endif
 
-//     }
+    }
 
-//     // laf
-//     if (getenv("LAF_SPLIT_SWITCHES") || getenv("AFL_LLVM_LAF_SPLIT_SWITCHES")) {
+    // laf
+    if (getenv("LAF_SPLIT_SWITCHES") || getenv("AFL_LLVM_LAF_SPLIT_SWITCHES")) {
 
-// #if LLVM_MAJOR >= 11                                /* use new pass manager */
-//   #if LLVM_MAJOR < 16
-//       cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
-//   #endif
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("-fpass-plugin=%s/split-switches-pass.so", obj_path);
-// #else
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] = "-load";
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("%s/split-switches-pass.so", obj_path);
-// #endif
+#if LLVM_MAJOR >= 11                                /* use new pass manager */
+  #if LLVM_MAJOR < 16
+      cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
+  #endif
+      cc_params[cc_par_cnt++] =
+          alloc_printf("-fpass-plugin=%s/split-switches-pass.so", obj_path);
+#else
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] = "-load";
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("%s/split-switches-pass.so", obj_path);
+#endif
 
-//     }
+    }
 
-//     if (getenv("LAF_TRANSFORM_COMPARES") ||
-//         getenv("AFL_LLVM_LAF_TRANSFORM_COMPARES")) {
+    if (getenv("LAF_TRANSFORM_COMPARES") ||
+        getenv("AFL_LLVM_LAF_TRANSFORM_COMPARES")) {
 
-// #if LLVM_MAJOR >= 11                                /* use new pass manager */
-//   #if LLVM_MAJOR < 16
-//       cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
-//   #endif
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("-fpass-plugin=%s/compare-transform-pass.so", obj_path);
-// #else
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] = "-load";
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("%s/compare-transform-pass.so", obj_path);
-// #endif
+#if LLVM_MAJOR >= 11                                /* use new pass manager */
+  #if LLVM_MAJOR < 16
+      cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
+  #endif
+      cc_params[cc_par_cnt++] =
+          alloc_printf("-fpass-plugin=%s/compare-transform-pass.so", obj_path);
+#else
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] = "-load";
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("%s/compare-transform-pass.so", obj_path);
+#endif
 
-//     }
+    }
 
-//     // /laf
+    // /laf
 
-//     unsetenv("AFL_LD");
-//     unsetenv("AFL_LD_CALLER");
+    unsetenv("AFL_LD");
+    unsetenv("AFL_LD_CALLER");
 
-//     if (cmplog_mode) {
+    if (cmplog_mode) {
 
-//       cc_params[cc_par_cnt++] = "-fno-inline";
+      cc_params[cc_par_cnt++] = "-fno-inline";
 
-// #if LLVM_MAJOR >= 11                                /* use new pass manager */
-//   #if LLVM_MAJOR < 16
-//       cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
-//   #endif
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("-fpass-plugin=%s/cmplog-switches-pass.so", obj_path);
-//   #if LLVM_MAJOR < 16
-//       cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
-//   #endif
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("-fpass-plugin=%s/split-switches-pass.so", obj_path);
-// #else
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] = "-load";
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("%s/cmplog-switches-pass.so", obj_path);
+#if LLVM_MAJOR >= 11                                /* use new pass manager */
+  #if LLVM_MAJOR < 16
+      cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
+  #endif
+      cc_params[cc_par_cnt++] =
+          alloc_printf("-fpass-plugin=%s/cmplog-switches-pass.so", obj_path);
+  #if LLVM_MAJOR < 16
+      cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
+  #endif
+      cc_params[cc_par_cnt++] =
+          alloc_printf("-fpass-plugin=%s/split-switches-pass.so", obj_path);
+#else
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] = "-load";
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("%s/cmplog-switches-pass.so", obj_path);
 
-//       // reuse split switches from laf
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] = "-load";
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("%s/split-switches-pass.so", obj_path);
-// #endif
+      // reuse split switches from laf
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] = "-load";
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("%s/split-switches-pass.so", obj_path);
+#endif
 
-//     }
+    }
 
     //#if LLVM_MAJOR >= 13
     //    // Use the old pass manager in LLVM 14 which the afl++ passes still
     //    use. cc_params[cc_par_cnt++] = "-flegacy-pass-manager";
     //#endif
 
-    // if (lto_mode) {
+    if (lto_mode) {
 
-// #if LLVM_MAJOR >= 11                                /* use new pass manager */
-//       cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("-fpass-plugin=%s/lto-marker.so", obj_path);
-// #else
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] = "-load";
-//       cc_params[cc_par_cnt++] = "-Xclang";
-//       cc_params[cc_par_cnt++] =
-//           alloc_printf("%s/lto-marker.so", obj_path);
-// #endif
+#if LLVM_MAJOR >= 11                                /* use new pass manager */
+      cc_params[cc_par_cnt++] = "-fexperimental-new-pass-manager";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("-fpass-plugin=%s/lto-marker.so", obj_path);
+#else
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] = "-load";
+      cc_params[cc_par_cnt++] = "-Xclang";
+      cc_params[cc_par_cnt++] =
+          alloc_printf("%s/lto-marker.so", obj_path);
+#endif
 
-    // }
+    }
 
     if (lto_mode && !have_c) {
 
@@ -1221,7 +1221,7 @@ static void edit_params(u32 argc, char **argv, char **envp) {
 
   cc_params[cc_par_cnt++] =
       "-D__AFL_FUZZ_INIT()="
-      // "int __afl_sharedmem_fuzzing = 1;"
+      "int __afl_sharedmem_fuzzing = 1;"
       "extern unsigned int *__afl_fuzz_len;"
       "extern unsigned char *__afl_fuzz_ptr;"
       "unsigned char __afl_fuzz_alt[1048576];"
