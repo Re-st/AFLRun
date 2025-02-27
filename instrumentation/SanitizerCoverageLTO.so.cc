@@ -8,6 +8,7 @@
 #include <string.h>
 #include <sys/time.h>
 
+#include <chrono>
 #include <list>
 #include <string>
 #include <fstream>
@@ -454,8 +455,21 @@ bool ModuleSanitizerCoverageLTO::instrumentModule(
 
   if (is_aflrun) {
     size_t num_rm = 0;
+    auto   start_time = std::chrono::high_resolution_clock::now();
     bool has_targets = aflrunPreprocess(
       M, targets, num_rm, be_quiet, out_directory);
+    auto end_time = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end_time - start_time;
+    const char *bin_name = getenv("BIN_NAME") ? getenv("BIN_NAME") : "a";
+    std::string timing_file = "/benchmark/AFLRun-" + std::string(bin_name) +
+                              "-instrument_time.txt";
+    std::ofstream timing_out(timing_file, std::ofstream::out);
+    if (timing_out.is_open()) {
+      timing_out << elapsed.count() << " seconds" << std::endl;
+      timing_out.close();
+    }
+    exit(0);
+
     if (has_targets) {
       if (!be_quiet)
         OKF("Removed = %lu", num_rm);
