@@ -707,7 +707,7 @@ static void load_extras_file(u8* fname, u32* min_len, u32* max_len,
 /* Read extras from the extras directory and sort them by size. */
 
 static void load_extras(u8* dir) {
-
+  PFATAL("load_extras used in afl-mutator.so.c!!!!");
   DIR* d;
   struct dirent* de;
   u32 min_len = MAX_DICT_FILE, max_len = 0, dict_level = 0;

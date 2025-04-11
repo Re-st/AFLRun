@@ -290,7 +290,7 @@ static void extras_check_and_sort(afl_state_t *afl, u32 min_len, u32 max_len,
 /* Read extras from the extras directory and sort them by size. */
 
 void load_extras(afl_state_t *afl, u8 *dir) {
-
+  PFATAL("load_extras used!!!!");
   DIR           *d;
   struct dirent *de;
   u32            min_len = MAX_DICT_FILE, max_len = 0, dict_level = 0;
