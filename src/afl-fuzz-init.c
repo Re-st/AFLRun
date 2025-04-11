@@ -3032,6 +3032,11 @@ void aflrun_temp_dir_init(afl_state_t* afl, const char* temp_dir) {
     malloc(afl->fsrv.num_targets * sizeof(double));
 
   reach_t next_idx = 0;
+  FILE *log_file = fopen("parsed_results.log", "w");
+  if (!log_file) {
+    FATAL("Failed to open log file");
+  }
+
   while (1) {
     line = NULL; len = 0;
     res = getline(&line, &len, fd);
@@ -3073,7 +3078,21 @@ void aflrun_temp_dir_init(afl_state_t* afl, const char* temp_dir) {
     afl->reachable_to_targets[next_idx++] =
       realloc(buf, idx * sizeof(reach_t));
     free(line);
+
+    // Log the parsed results
+    fprintf(log_file, "Reachable: %s\n", afl->reachable_names[next_idx - 1]);
+    fprintf(log_file, "Targets: ");
+    for (reach_t i = 0; i < idx; ++i) {
+      fprintf(log_file, "%u ", buf[i]);
+    }
+    fprintf(log_file, "\n");
+    if (next_idx <= afl->fsrv.num_targets) {
+      fprintf(log_file, "Weight: %f\n", afl->target_weights[next_idx - 1]);
+    }
+    fprintf(log_file, "\n");
   }
+
+  fclose(log_file);
   if (next_idx != afl->fsrv.num_reachables)
     FATAL("Header and countent of BBreachable.txt does not match");
 
