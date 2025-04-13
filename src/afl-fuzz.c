@@ -2198,7 +2198,7 @@ int main(int argc, char **argv_orig, char **envp) {
     OKF("Cmplog forkserver successfully started");
 
   }
-
+  OKF("load_auto will be used");
   load_auto(afl);
 
   if (extras_dir_cnt) {
@@ -2228,6 +2228,14 @@ int main(int argc, char **argv_orig, char **envp) {
   deunicode_extras(afl);
   dedup_extras(afl);
   if (afl->extras_cnt) { OKF("Loaded a total of %u extras.", afl->extras_cnt); }
+  for (u32 i = 0; i < afl->extras_cnt; i++) {
+    fprintf(stderr, "[%03u] len=%u: ", i, afl->extras[i].len);
+    for (u32 j = 0; j < afl->extras[i].len; j++) {
+      fputc(isprint(afl->extras[i].data[j]) ? afl->extras[i].data[j] : '.', stderr);
+    }
+    fputc('\n', stderr);
+  }
+  
 
   // after we have the correct bitmap size we can read the bitmap -B option
   // and set the virgin maps

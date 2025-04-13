@@ -413,8 +413,9 @@ static void add_extra_nocheck(afl_state_t *afl, u8 *mem, u32 len) {
   afl->extras[afl->extras_cnt].data = ck_alloc(len);
   afl->extras[afl->extras_cnt].len = len;
   memcpy(afl->extras[afl->extras_cnt].data, mem, len);
+  OKF("Doing memcpy(afl->extras[%u].data, %s, %u). afl->extras_cnt will ++.", afl->extras_cnt,
+      stringify_mem_size(NULL, 0, len), len);
   afl->extras_cnt++;
-
   /* We only want to print this once */
 
   if (afl->extras_cnt == afl->max_det_extras + 1) {
@@ -496,7 +497,7 @@ void deunicode_extras(afl_state_t *afl) {
         }
 
       }
-
+      OKF("add_Extras_nocheck L499");
       add_extra_nocheck(afl, buf, k);
       k = 0;
 
@@ -515,7 +516,7 @@ void deunicode_extras(afl_state_t *afl) {
       }
 
     }
-
+    OKF("add_Extras_nocheck L518");
     add_extra_nocheck(afl, buf, k);
 
   }
@@ -598,7 +599,7 @@ void add_extra(afl_state_t *afl, u8 *mem, u32 len) {
 
     WARNF("Extra '%.*s' is pretty large, consider trimming.", (int)len, mem);
 
-  }
+  }("add_Extras_nocheck L602");
 
   add_extra_nocheck(afl, mem, len);
 
@@ -761,13 +762,14 @@ void save_auto(afl_state_t *afl) {
 /* Load automatically generated extras. */
 
 void load_auto(afl_state_t *afl) {
-  PFATAL("load_auto used!!!!");
-  u32 i;
 
+  u32 i;
+  OKF("USE_AUTO_EXTRAS: %d.", USE_AUTO_EXTRAS);
   for (i = 0; i < USE_AUTO_EXTRAS; ++i) {
 
     u8  tmp[MAX_AUTO_EXTRA + 1];
     u8 *fn = alloc_printf("%s/.state/auto_extras/auto_%06u", afl->in_dir, i);
+    OKF("Using %s/.state/auto_extras/auto_%06u", afl->in_dir, i);
     s32 fd, len;
 
     fd = open(fn, O_RDONLY);
