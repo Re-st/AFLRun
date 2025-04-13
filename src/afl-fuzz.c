@@ -823,7 +823,7 @@ int main(int argc, char **argv_orig, char **envp) {
         break;
 
       case 'x':                                               /* dictionary */
-
+        OKF("Using dictionary: %s", optarg);
         if (extras_dir_cnt >= 4) {
 
           FATAL("More than four -x options are not supported");
@@ -2204,7 +2204,7 @@ int main(int argc, char **argv_orig, char **envp) {
   if (extras_dir_cnt) {
 
     for (u8 i = 0; i < extras_dir_cnt; i++) {
-
+      OKF("Loading load_extras in L2207 w/ extras_dir_cnt %u", extras_dir_cnt);
       load_extras(afl, extras_dir[i]);
 
     }

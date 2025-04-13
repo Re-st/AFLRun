@@ -1254,7 +1254,7 @@ void *afl_custom_init(void* p, unsigned int s) {
   dev_urandom_fd = open("/dev/urandom", O_RDONLY);
   if (dev_urandom_fd < 0) PFATAL("Unable to open /dev/urandom");
   u8  *extras_dir = getenv("AFL_DICT"); // TODO: parse /proc/self/cmdline instead
-  if (extras_dir) load_extras(extras_dir);
+  if (extras_dir) {OKF("Loading extra in afl_custom_init by extras_dir %s", extras_dir); load_extras(extras_dir);}
   splice_bufs = ck_alloc(SPLICE_CYCLES * sizeof(u8*));
   splice_buf_sizes = ck_alloc_nozero(SPLICE_CYCLES * sizeof(u32));
   const char* s_cycle_time = getenv("AFLRUN_CYCLE_TIME");

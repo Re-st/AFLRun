@@ -761,7 +761,7 @@ void save_auto(afl_state_t *afl) {
 /* Load automatically generated extras. */
 
 void load_auto(afl_state_t *afl) {
-
+  PFATAL("load_auto used!!!!");
   u32 i;
 
   for (i = 0; i < USE_AUTO_EXTRAS; ++i) {
