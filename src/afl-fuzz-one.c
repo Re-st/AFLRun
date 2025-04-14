@@ -2879,6 +2879,8 @@ havoc_stage:
         }
 
         default:
+          afl->extras_cnt = 0;
+          afl->a_extras_cnt = 0;
 
           r -= (MAX_HAVOC_ENTRY + 1);
 
