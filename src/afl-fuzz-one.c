@@ -608,7 +608,6 @@ u8 fuzz_one_original(afl_state_t *afl) {
    *********************/
   if (likely(afl->is_aflrun)) {
     orig_perf = perf_score = afl->queue_cur->quant_score;
-    perf_score = (perf_score > 0) ? 100 : 0;
     // num_execs = 0.1s * (1 / exec_us) * quantum
     num_execs = QUANTUM_TIME * perf_score / afl->queue_cur->exec_us;
 
