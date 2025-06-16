@@ -2386,6 +2386,12 @@ int main(int argc, char **argv_orig, char **envp) {
 
     cull_queue(afl);
     afl->is_aflrun = aflrun_get_mode();
+    // log is_aflrun fact on debug.log
+    FILE *debug_log = fopen("debug.log", "a");
+    u32 now_time = (afl->prev_run_time + get_cur_time() - afl->start_time) / 1000;
+    fprintf(debug_log, "[%02u:%02u:%02u] is_aflrun: %d\n",
+            now_time / 3600, (now_time % 3600) / 60, now_time % 60, afl->is_aflrun);
+    fclose(debug_log);
     u8 is_cycle_end = afl->old_seed_selection || afl->is_aflrun ?
       !afl->queue_cur :
       afl->runs_in_current_cycle > (afl->queued_items - afl->queued_extra);
@@ -2395,6 +2401,12 @@ int main(int argc, char **argv_orig, char **envp) {
       afl->force_cycle_end = 0;
       u8 whole_end;
       afl->is_aflrun = aflrun_cycle_end(&whole_end);
+      // log is_aflrun fact on debug.log
+      FILE *debug_log = fopen("debug.log", "a");
+      u32 now_time = (afl->prev_run_time + get_cur_time() - afl->start_time) / 1000;
+      fprintf(debug_log, "[%02u:%02u:%02u] is_aflrun: %d\n",
+              now_time / 3600, (now_time % 3600) / 60, now_time % 60, afl->is_aflrun);
+      fclose(debug_log);
       // afl->is_aflrun may be updated because cycle end may change the mode
 
       /* Now it's the beginning of a new cycle */

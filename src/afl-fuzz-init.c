@@ -1976,6 +1976,12 @@ void setup_dirs_fds(afl_state_t *afl) {
 
   }
 
+  u8 *x = alloc_printf("%s/debug.log", afl->out_dir);
+  int fd = open(x, O_CREAT | O_RDWR, 0644);
+  if (fd < 0) FATAL("cannot create %s", x);
+  free(x);
+  close(fd);
+
   /* Queue directory for any starting & discovered paths. */
 
   tmp = alloc_printf("%s/queue", afl->out_dir);
