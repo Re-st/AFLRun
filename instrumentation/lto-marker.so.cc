@@ -5,6 +5,10 @@
 #include "llvm/IR/Function.h"
 #include "llvm/Support/raw_ostream.h"
 
+#if LLVM_VERSION_MAJOR < 11
+  #error LLVM version < 11 is not supported. Die.
+#endif
+
 #if LLVM_VERSION_MAJOR >= 11
   #include "llvm/Passes/PassPlugin.h"
   #include "llvm/Passes/PassBuilder.h"
