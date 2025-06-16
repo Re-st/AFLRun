@@ -156,40 +156,48 @@ CXXFLAGS ?= -O2 $(CFLAGS_OPT)
 override CXXFLAGS += -g -Wall -std=c++14 -I robin-hood-hashing/src/include/ -I include/
 
 ifdef AFLRUN_CTX
+  $(error AFLRUN_CTX is defined)
   override CFLAGS += -DAFLRUN_CTX
   override CXXFLAGS += -DAFLRUN_CTX
 endif
 
 ifdef AFLRUN_CTX_DIV
+  $(error AFLRUN_CTX_DIV is defined)
   override CXXFLAGS += -DAFLRUN_CTX_DIV
 endif
 
 ifdef AFLRUN_OVERHEAD
+  $(error AFLRUN_OVERHEAD is defined)
   override CFLAGS += -DAFLRUN_OVERHEAD
   override CXXFLAGS += -DAFLRUN_OVERHEAD
 endif
 
 ifeq "$(SYS)" "FreeBSD"
+  $(error FreeBSD)
   override CFLAGS  += -I /usr/local/include/
   override LDFLAGS += -L /usr/local/lib/
 endif
 
 ifeq "$(SYS)" "DragonFly"
+  $(error DragonFly)
   override CFLAGS  += -I /usr/local/include/
   override LDFLAGS += -L /usr/local/lib/
 endif
 
 ifeq "$(SYS)" "OpenBSD"
+  $(error OpenBSD)
   override CFLAGS  += -I /usr/local/include/ -mno-retpoline
   override LDFLAGS += -Wl,-z,notext -L /usr/local/lib/
 endif
 
 ifeq "$(SYS)" "NetBSD"
+  $(error NetBSD)
   override CFLAGS  += -I /usr/pkg/include/
   override LDFLAGS += -L /usr/pkg/lib/
 endif
 
 ifeq "$(SYS)" "Haiku"
+  $(error Haiku)
   SHMAT_OK=0
   override CFLAGS  += -DUSEMMAP=1 -Wno-error=format
   override LDFLAGS += -Wno-deprecated-declarations -lgnu -lnetwork
