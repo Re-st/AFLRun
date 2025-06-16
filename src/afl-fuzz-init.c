@@ -3006,16 +3006,16 @@ void aflrun_temp_dir_init(afl_state_t* afl, const char* temp_dir) {
 
   char* endptr;
   afl->fsrv.num_targets = strtoul(line, &endptr, 10);
-  if (*endptr != ',')
-    FATAL("Wrong format for BBreachable.txt");
+  // if (*endptr != ',')
+  //   FATAL("Wrong format for BBreachable.txt");
   *endptr = 0;
   afl->fsrv.num_reachables = strtoul(endptr + 1, &endptr, 10);
-  if (*endptr != 0 && *endptr != '\n')
-    FATAL("Wrong format for BBreachable.txt");
+  // if (*endptr != 0 && *endptr != '\n')
+  //   FATAL("Wrong format for BBreachable.txt");
 
-  if (afl->fsrv.num_targets == 0 ||
-    afl->fsrv.num_targets > afl->fsrv.num_reachables)
-    FATAL("Wrong number of targets and reachables");
+  // if (afl->fsrv.num_targets == 0 ||
+  //   afl->fsrv.num_targets > afl->fsrv.num_reachables)
+  //   FATAL("Wrong number of targets and reachables");
 
   afl->reachable_names = malloc(
     afl->fsrv.num_reachables * sizeof(char*));
@@ -3062,13 +3062,13 @@ void aflrun_temp_dir_init(afl_state_t* afl, const char* temp_dir) {
       iter = endptr + 1;
     }
     if (next_idx < afl->fsrv.num_targets) {
-      if (*endptr != '|')
-        FATAL("Need weight for each target");
+      // if (*endptr != '|')
+      //   FATAL("Need weight for each target");
       afl->target_weights[next_idx] = strtod(endptr + 1, NULL);
     }
 
-    if (next_idx >= afl->fsrv.num_reachables)
-      FATAL("Header and countent of BBreachable.txt does not match");
+    // if (next_idx >= afl->fsrv.num_reachables)
+    //   FATAL("Header and countent of BBreachable.txt does not match");
     afl->reachable_to_size[next_idx] = idx;
     afl->reachable_to_targets[next_idx++] =
       realloc(buf, idx * sizeof(reach_t));
@@ -3081,9 +3081,9 @@ void aflrun_temp_dir_init(afl_state_t* afl, const char* temp_dir) {
 
   aflrun_load_freachables(
     temp_dir, &afl->fsrv.num_ftargets, &afl->fsrv.num_freachables);
-  if (afl->fsrv.num_ftargets == 0 ||
-    afl->fsrv.num_ftargets > afl->fsrv.num_freachables)
-      FATAL("Parsing Freachable.txt failed");
+  // if (afl->fsrv.num_ftargets == 0 ||
+  //   afl->fsrv.num_ftargets > afl->fsrv.num_freachables)
+  //     FATAL("Parsing Freachable.txt failed");
   afl->virgin_freachables = malloc(
     MAP_RF_SIZE(afl->fsrv.num_freachables));
 
