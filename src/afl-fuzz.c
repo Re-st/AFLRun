@@ -2392,7 +2392,6 @@ int main(int argc, char **argv_orig, char **envp) {
     fprintf(debug_log, "[%02u:%02u:%02u] is_aflrun: %d\n",
             now_time / 3600, (now_time % 3600) / 60, now_time % 60, afl->is_aflrun);
     fclose(debug_log);
-    afl->is_aflrun = 0;
     u8 is_cycle_end = afl->old_seed_selection || afl->is_aflrun ?
       !afl->queue_cur :
       afl->runs_in_current_cycle > (afl->queued_items - afl->queued_extra);
@@ -2408,7 +2407,6 @@ int main(int argc, char **argv_orig, char **envp) {
       fprintf(debug_log, "[%02u:%02u:%02u] is_aflrun: %d\n",
               now_time / 3600, (now_time % 3600) / 60, now_time % 60, afl->is_aflrun);
       fclose(debug_log);
-      afl->is_aflrun = 0;
       // afl->is_aflrun may be updated because cycle end may change the mode
 
       /* Now it's the beginning of a new cycle */
