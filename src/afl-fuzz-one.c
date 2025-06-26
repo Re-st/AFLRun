@@ -606,29 +606,29 @@ u8 fuzz_one_original(afl_state_t *afl) {
   /*********************
    * PERFORMANCE SCORE *
    *********************/
-  if (likely(afl->is_aflrun)) {
-    orig_perf = perf_score = afl->queue_cur->quant_score;
-    // num_execs = 0.1s * (1 / exec_us) * quantum
-    num_execs = QUANTUM_TIME * perf_score / afl->queue_cur->exec_us;
+  // if (likely(afl->is_aflrun)) {
+  //   orig_perf = perf_score = afl->queue_cur->quant_score;
+  //   // num_execs = 0.1s * (1 / exec_us) * quantum
+  //   num_execs = QUANTUM_TIME * perf_score / afl->queue_cur->exec_us;
 
-    // If num_execs is smaller than minimum threthold:
-    if (num_execs < afl->min_num_exec) {
+  //   // If num_execs is smaller than minimum threthold:
+  //   if (num_execs < afl->min_num_exec) {
 
-      // for prob num_execs/afl->min_num_exec, we execute for min_num_exec times.
-      if (rand_below(afl, afl->min_num_exec) < num_execs)
-        num_execs = afl->min_num_exec;
-      else // otherwise, we skip
-        goto abandon_entry;
-      // In this way, we the expected number of execution can be num_execs.
+  //     // for prob num_execs/afl->min_num_exec, we execute for min_num_exec times.
+  //     if (rand_below(afl, afl->min_num_exec) < num_execs)
+  //       num_execs = afl->min_num_exec;
+  //     else // otherwise, we skip
+  //       goto abandon_entry;
+  //     // In this way, we the expected number of execution can be num_execs.
 
-    }
+  //   }
 
-  }
-  else if (likely(!afl->old_seed_selection))
+  // }
+  // else if (likely(!afl->old_seed_selection))
     orig_perf = perf_score = afl->queue_cur->perf_score;
-  else
-    afl->queue_cur->perf_score = orig_perf = perf_score =
-        calculate_score(afl, afl->queue_cur);
+  // else
+    // afl->queue_cur->perf_score = orig_perf = perf_score =
+    //     calculate_score(afl, afl->queue_cur);
 
   if (unlikely(perf_score <= 0 && afl->active_items > 1)) {
 
@@ -2175,7 +2175,7 @@ havoc_stage:
   /* The havoc stage mutation code is also invoked when splicing files; if the
      splice_cycle variable is set, generate different descriptions and such. */
 
-  if (afl->is_aflrun) {
+  if (0) {
 
     if (!splice_cycle) {
 
@@ -3427,28 +3427,28 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
    * PERFORMANCE SCORE *
    *********************/
 
-  if (likely(afl->is_aflrun)) {
-    orig_perf = perf_score = afl->queue_cur->quant_score;
-    // num_execs = 0.1s * (1 / exec_us) * quantum
-    num_execs = QUANTUM_TIME * perf_score / afl->queue_cur->exec_us;
+  // if (likely(afl->is_aflrun)) {
+  //   orig_perf = perf_score = afl->queue_cur->quant_score;
+  //   // num_execs = 0.1s * (1 / exec_us) * quantum
+  //   num_execs = QUANTUM_TIME * perf_score / afl->queue_cur->exec_us;
 
-    // If num_execs is smaller than minimum threthold:
-    if (num_execs < afl->min_num_exec) {
+  //   // If num_execs is smaller than minimum threthold:
+  //   if (num_execs < afl->min_num_exec) {
 
-      // for prob num_execs/afl->min_num_exec, we execute for min_num_exec times.
-      if (rand_below(afl, afl->min_num_exec) < num_execs)
-        num_execs = afl->min_num_exec;
-      else // otherwise, we skip
-        goto abandon_entry;
-      // In this way, we the expected number of execution can be num_execs.
+  //     // for prob num_execs/afl->min_num_exec, we execute for min_num_exec times.
+  //     if (rand_below(afl, afl->min_num_exec) < num_execs)
+  //       num_execs = afl->min_num_exec;
+  //     else // otherwise, we skip
+  //       goto abandon_entry;
+  //     // In this way, we the expected number of execution can be num_execs.
 
-    }
+  //   }
 
-  }
-  else if (likely(!afl->old_seed_selection))
+  // }
+  // else if (likely(!afl->old_seed_selection))
     orig_perf = perf_score = afl->queue_cur->perf_score;
-  else
-    orig_perf = perf_score = calculate_score(afl, afl->queue_cur);
+  // else
+    // orig_perf = perf_score = calculate_score(afl, afl->queue_cur);
 
   if (unlikely(perf_score <= 0 && afl->active_items > 1)) {
 
@@ -4830,7 +4830,7 @@ pacemaker_fuzzing:
          the splice_cycle variable is set, generate different descriptions and
          such. */
 
-      if (afl->is_aflrun) {
+      if (0) {
 
         if (!splice_cycle) {
 
