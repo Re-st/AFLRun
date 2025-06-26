@@ -2392,9 +2392,7 @@ int main(int argc, char **argv_orig, char **envp) {
     fprintf(debug_log, "[%02u:%02u:%02u] is_aflrun: %d\n",
             now_time / 3600, (now_time % 3600) / 60, now_time % 60, afl->is_aflrun);
     fclose(debug_log);
-    u8 is_cycle_end = afl->old_seed_selection || afl->is_aflrun ?
-      !afl->queue_cur :
-      afl->runs_in_current_cycle > (afl->queued_items - afl->queued_extra);
+    u8 is_cycle_end = afl->old_seed_selection || afl->runs_in_current_cycle > (afl->queued_items - afl->queued_extra);
 
     if (unlikely(is_cycle_end || afl->force_cycle_end)) {
 
@@ -2413,10 +2411,8 @@ int main(int argc, char **argv_orig, char **envp) {
 
       // We need to re-calculate perf_score at beginning of each coverage cycle.
       // Also we need to cull queue before each coverage cycle.
-      if (!afl->is_aflrun) {
-        afl->reinit_table = 1;
-        afl->score_changed = 1;
-      }
+      afl->reinit_table = 1;
+      afl->score_changed = 1;
 
       if (unlikely((afl->last_sync_cycle < afl->queue_cycle ||
                     (!afl->queue_cycle && afl->afl_env.afl_import_first)) &&
@@ -2630,7 +2626,7 @@ int main(int argc, char **argv_orig, char **envp) {
               afl->queued_items);
   #endif
 
-      if (afl->cycle_schedules && !afl->is_aflrun) {
+      if (afl->cycle_schedules) {
 
         /* we cannot mix non-AFLfast schedules with others */
 
@@ -2689,7 +2685,7 @@ int main(int argc, char **argv_orig, char **envp) {
 
     do {
 
-      if (unlikely(!afl->old_seed_selection && !afl->is_aflrun)) {
+      if (unlikely(!afl->old_seed_selection)) {
 
         if (unlikely(prev_queued_items < afl->queued_items ||
                      afl->reinit_table)) {
@@ -2752,12 +2748,11 @@ int main(int argc, char **argv_orig, char **envp) {
       double fuzzed_quantum =
         afl->fuzzed_times * afl->queue_cur->exec_us / (double)QUANTUM_TIME;
       aflrun_update_fuzzed_quant(afl->queue_cur->id, fuzzed_quantum);
-      afl->quantum_ratio = afl->is_aflrun ?
-        fuzzed_quantum / afl->queue_cur->quant_score : -1;
+      afl->quantum_ratio = -1;
 
       if (unlikely(!afl->stop_soon && exit_1)) { afl->stop_soon = 2; }
 
-      if (unlikely(afl->old_seed_selection && !afl->is_aflrun)) {
+      if (unlikely(afl->old_seed_selection)) {
 
         while (++afl->current_entry < afl->queued_items &&
                afl->queue_buf[afl->current_entry]->disabled) {};
