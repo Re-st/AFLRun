@@ -379,7 +379,7 @@ static u8 colorization(afl_state_t *afl, u8 *buf, u32 len,
 
     }
 
-    if (afl->stage_cur+=3 % screen_update == 0) { show_stats(afl); };
+    if (afl->stage_cur+=20 % screen_update == 0) { show_stats(afl); };
 
   }
 
@@ -1914,7 +1914,7 @@ static u8 cmp_fuzz(afl_state_t *afl, u32 key, u8 *orig_buf, u8 *buf, u8 *cbuf,
     }
 
   cmp_fuzz_next_iter:
-    afl->stage_cur+=3;
+    afl->stage_cur+=20;
 
   }
 
@@ -2602,7 +2602,7 @@ static u8 rtn_fuzz(afl_state_t *afl, u32 key, u8 *orig_buf, u8 *buf, u8 *cbuf,
     }
 
   rtn_fuzz_next_iter:
-    afl->stage_cur+=3;
+    afl->stage_cur+=20;
 
   }
 
