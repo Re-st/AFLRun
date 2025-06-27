@@ -537,7 +537,7 @@ u8 calibrate_case(afl_state_t *afl, struct queue_entry *q, u8 *use_mem,
 
   start_us = get_cur_time_us();
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=20) {
 
     if (unlikely(afl->debug)) {
 
@@ -1088,7 +1088,7 @@ u8 trim_case(afl_state_t *afl, struct queue_entry *q, u8 *in_buf) {
       /* Since this can be slow, update the screen every now and then. */
 
       if (!(trim_exec++ % afl->stats_update_freq)) { show_stats(afl); }
-      afl->stage_cur+=3;
+      afl->stage_cur+=20;
 
     }
 
