@@ -323,7 +323,7 @@ static u8 colorization(afl_state_t *afl, u8 *buf, u32 len,
   }
 
   while ((rng = pop_biggest_range(&ranges)) != NULL &&
-         afl->stage_cur < 20 * afl->stage_max) {
+         afl->stage_cur < 3 * afl->stage_max) {
 
     u32 s = 1 + rng->end - rng->start;
 
