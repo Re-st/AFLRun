@@ -724,7 +724,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 
   /* Now flip bits. */
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -840,7 +840,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -875,7 +875,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -942,7 +942,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
   orig_hit_cnt = new_hit_cnt;
   prev_cksum = _prev_cksum;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur;
 
@@ -1049,7 +1049,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 #endif
 
     if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-    ++afl->stage_cur;
+    afl->stage_cur+=3;
 
     *(u16 *)(out_buf + i) ^= 0xFFFF;
 
@@ -1095,7 +1095,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 #endif
 
     if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-    ++afl->stage_cur;
+    afl->stage_cur+=3;
 
     *(u32 *)(out_buf + i) ^= 0xFFFFFFFF;
 
@@ -1161,7 +1161,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1182,7 +1182,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1254,7 +1254,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1273,7 +1273,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1296,7 +1296,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1315,7 +1315,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1386,7 +1386,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1405,7 +1405,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1428,7 +1428,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1447,7 +1447,7 @@ skip_bitflip:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1524,7 +1524,7 @@ skip_arith:
       if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
 
       out_buf[i] = orig;
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -1585,7 +1585,7 @@ skip_arith:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1607,7 +1607,7 @@ skip_arith:
 
         *(u16 *)(out_buf + i) = SWAP16(interesting_16[j]);
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1677,7 +1677,7 @@ skip_arith:
 #endif
 
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1699,7 +1699,7 @@ skip_arith:
 
         *(u32 *)(out_buf + i) = SWAP32(interesting_32[j]);
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -1780,7 +1780,7 @@ skip_interest:
 
       if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -1839,7 +1839,7 @@ skip_interest:
 
       }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -1900,7 +1900,7 @@ skip_user_extras:
 
       if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -1959,7 +1959,7 @@ skip_user_extras:
 
       }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -2056,7 +2056,7 @@ custom_mutator_stage:
     if (afl->stage_max) {
 
       for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max;
-           ++afl->stage_cur) {
+           afl->stage_cur+=3) {
 
         struct queue_entry *target = NULL;
         u32                 tid;
@@ -2287,7 +2287,7 @@ havoc_stage:
 
   }
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     u32 use_stacking = 1 << (1 + rand_below(afl, afl->havoc_stack_pow2));
 
@@ -3553,7 +3553,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
 
   /* Now flip bits. */
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -3668,7 +3668,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -3702,7 +3702,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -3768,7 +3768,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
   orig_hit_cnt = new_hit_cnt;
   prev_cksum = _prev_cksum;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; afl->stage_cur+=3) {
 
     afl->stage_cur_byte = afl->stage_cur;
 
@@ -3873,7 +3873,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
              afl->queue_cur->fname, afl->stage_cur);
 #endif
     if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-    ++afl->stage_cur;
+    afl->stage_cur+=3;
 
     *(u16 *)(out_buf + i) ^= 0xFFFF;
 
@@ -3918,7 +3918,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
              afl->queue_cur->fname, afl->stage_cur);
 #endif
     if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-    ++afl->stage_cur;
+    afl->stage_cur+=3;
 
     *(u32 *)(out_buf + i) ^= 0xFFFFFFFF;
 
@@ -3983,7 +3983,7 @@ skip_bitflip:
                  afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4003,7 +4003,7 @@ skip_bitflip:
                  afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4074,7 +4074,7 @@ skip_bitflip:
                  afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4092,7 +4092,7 @@ skip_bitflip:
                  afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4114,7 +4114,7 @@ skip_bitflip:
                  "%s MOPT_ARITH16+BE-%u-%u", afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4132,7 +4132,7 @@ skip_bitflip:
                  "%s MOPT_ARITH16_BE+%u+%u", afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4202,7 +4202,7 @@ skip_bitflip:
                  afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4220,7 +4220,7 @@ skip_bitflip:
                  afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4242,7 +4242,7 @@ skip_bitflip:
                  "%s MOPT_ARITH32+BE-%u-%u", afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4260,7 +4260,7 @@ skip_bitflip:
                  "%s MOPT_ARITH32_BE-%u-%u", afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4336,7 +4336,7 @@ skip_arith:
       if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
 
       out_buf[i] = orig;
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -4396,7 +4396,7 @@ skip_arith:
                  "%s MOPT_INTERESTING16-%u-%u", afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4417,7 +4417,7 @@ skip_arith:
 #endif
         *(u16 *)(out_buf + i) = SWAP16(interesting_16[j]);
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4486,7 +4486,7 @@ skip_arith:
                  "%s MOPT_INTERESTING32-%u-%u", afl->queue_cur->fname, i, j);
 #endif
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4507,7 +4507,7 @@ skip_arith:
 #endif
         *(u32 *)(out_buf + i) = SWAP32(interesting_32[j]);
         if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
-        ++afl->stage_cur;
+        afl->stage_cur+=3;
 
       } else {
 
@@ -4588,7 +4588,7 @@ skip_interest:
 
       if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -4647,7 +4647,7 @@ skip_interest:
 
       }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -4709,7 +4709,7 @@ skip_user_extras:
 
       if (common_fuzz_stuff(afl, out_buf, len)) { goto abandon_entry; }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -4768,7 +4768,7 @@ skip_user_extras:
 
       }
 
-      ++afl->stage_cur;
+      afl->stage_cur+=3;
 
     }
 
@@ -4907,7 +4907,7 @@ pacemaker_fuzzing:
       }
 
       for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max;
-           ++afl->stage_cur) {
+           afl->stage_cur+=3) {
 
         u32 use_stacking = 1 << (1 + rand_below(afl, afl->havoc_stack_pow2));
 
@@ -5618,7 +5618,7 @@ pacemaker_fuzzing:
 
       } /* for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max;
 
-           ++afl->stage_cur) { */
+           afl->stage_cur+=3) { */
 
       new_hit_cnt = afl->queued_items + afl->saved_crashes;
 
