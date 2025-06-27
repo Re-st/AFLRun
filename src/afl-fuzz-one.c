@@ -724,7 +724,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 
   /* Now flip bits. */
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -840,7 +840,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -875,7 +875,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -942,7 +942,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
   orig_hit_cnt = new_hit_cnt;
   prev_cksum = _prev_cksum;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur;
 
@@ -2055,7 +2055,7 @@ custom_mutator_stage:
 
     if (afl->stage_max) {
 
-      for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max;
+      for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max;
            ++afl->stage_cur) {
 
         struct queue_entry *target = NULL;
@@ -2287,7 +2287,7 @@ havoc_stage:
 
   }
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     u32 use_stacking = 1 << (1 + rand_below(afl, afl->havoc_stack_pow2));
 
@@ -3553,7 +3553,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
 
   /* Now flip bits. */
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -3668,7 +3668,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -3702,7 +3702,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
 
   orig_hit_cnt = new_hit_cnt;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur >> 3;
 
@@ -3768,7 +3768,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
   orig_hit_cnt = new_hit_cnt;
   prev_cksum = _prev_cksum;
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     afl->stage_cur_byte = afl->stage_cur;
 
@@ -4906,7 +4906,7 @@ pacemaker_fuzzing:
 
       }
 
-      for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max;
+      for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max;
            ++afl->stage_cur) {
 
         u32 use_stacking = 1 << (1 + rand_below(afl, afl->havoc_stack_pow2));
@@ -5616,7 +5616,7 @@ pacemaker_fuzzing:
 
         }                                                             /* if */
 
-      } /* for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max;
+      } /* for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max;
 
            ++afl->stage_cur) { */
 
