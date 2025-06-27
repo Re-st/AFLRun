@@ -537,7 +537,7 @@ u8 calibrate_case(afl_state_t *afl, struct queue_entry *q, u8 *use_mem,
 
   start_us = get_cur_time_us();
 
-  for (afl->stage_cur = 0; afl->stage_cur < afl->stage_max; ++afl->stage_cur) {
+  for (afl->stage_cur = 0; afl->stage_cur < 3 * afl->stage_max; ++afl->stage_cur) {
 
     if (unlikely(afl->debug)) {
 
