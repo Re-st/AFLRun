@@ -568,9 +568,7 @@ u8 fuzz_one_original(afl_state_t *afl) {
    ************/
 
   if (unlikely(!afl->non_instrumented_mode && !afl->queue_cur->trim_done &&
-               !afl->disable_trim && (!afl->is_aflrun ||
-                 // In aflrun mode, we only trim when quant is large enough
-                 afl->queue_cur->quant_score > afl->trim_thr))) {
+               !afl->disable_trim)) {
 
     u32 old_len = afl->queue_cur->len;
 
@@ -3388,9 +3386,7 @@ static u8 mopt_common_fuzzing(afl_state_t *afl, MOpt_globals_t MOpt_globals) {
    ************/
 
   if (unlikely(!afl->non_instrumented_mode && !afl->queue_cur->trim_done &&
-               !afl->disable_trim && (!afl->is_aflrun ||
-                 // In aflrun mode, we only trim when quant is large enough
-                 afl->queue_cur->quant_score > afl->trim_thr))) {
+               !afl->disable_trim)) {
 
     u32 old_len = afl->queue_cur->len;
 
