@@ -2016,7 +2016,7 @@ custom_mutator_stage:
   afl->stage_val_type = STAGE_VAL_NONE;
   bool has_custom_fuzz = false;
 
-  if (afl->stage_max < HAVOC_MIN) {
+  if (afl->stage_max < HAVOC_MIN && !afl->is_aflrun) {
     afl->stage_max = HAVOC_MIN;
   }
 
@@ -2113,7 +2113,7 @@ custom_mutator_stage:
 
             if (afl->queued_items != havoc_queued) {
 
-              if (perf_score <= afl->havoc_max_mult * 100) {
+              if (!afl->is_aflrun && perf_score <= afl->havoc_max_mult * 100) {
 
                 afl->stage_max *= 2;
                 perf_score *= 2;
@@ -2221,7 +2221,7 @@ havoc_stage:
     }
   }
 
-  if (afl->stage_max < HAVOC_MIN) {
+  if (afl->stage_max < HAVOC_MIN && !afl->is_aflrun) {
     afl->stage_max = HAVOC_MIN;
   }
 
@@ -3104,7 +3104,7 @@ havoc_stage:
     if (afl->queued_items != havoc_queued) {
 
       // Don't increase perf_score in aflrun mode
-      if (perf_score <= afl->havoc_max_mult * 100) {
+      if (!afl->is_aflrun && perf_score <= afl->havoc_max_mult * 100) {
 
         afl->stage_max *= 2;
         perf_score *= 2;
@@ -4883,7 +4883,7 @@ pacemaker_fuzzing:
 
       }
 
-      if (afl->stage_max < HAVOC_MIN) {
+      if (afl->stage_max < HAVOC_MIN && !afl->is_aflrun) {
         afl->stage_max = HAVOC_MIN;
       }
 
@@ -5564,7 +5564,7 @@ pacemaker_fuzzing:
         if (afl->queued_items != havoc_queued) {
 
           // Don't increase perf_score in aflrun mode
-          if (perf_score <= afl->havoc_max_mult * 100) {
+          if (!afl->is_aflrun && perf_score <= afl->havoc_max_mult * 100) {
 
             afl->stage_max *= 2;
             perf_score *= 2;
