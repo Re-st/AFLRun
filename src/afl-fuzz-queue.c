@@ -1004,7 +1004,7 @@ u32 calculate_score(afl_state_t *afl, struct queue_entry *q) {
      for a bit longer until they catch up with the rest. */
 
   // We only want to change `handicap` in coverage mode
-  if (!afl->is_aflrun) {
+  // if (!afl->is_aflrun) {
 
     if (q->handicap >= 4) {
 
@@ -1018,7 +1018,7 @@ u32 calculate_score(afl_state_t *afl, struct queue_entry *q) {
 
     }
 
-  }
+  // }
 
   /* Final adjustment based on input depth, under the assumption that fuzzing
      deeper test cases is more likely to reveal stuff that can't be
