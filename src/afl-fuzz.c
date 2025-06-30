@@ -2413,10 +2413,10 @@ int main(int argc, char **argv_orig, char **envp) {
 
       // We need to re-calculate perf_score at beginning of each coverage cycle.
       // Also we need to cull queue before each coverage cycle.
-      // if (!afl->is_aflrun) {
+      if (!afl->is_aflrun) {
         afl->reinit_table = 1;
         afl->score_changed = 1;
-      // }
+      }
 
       if (unlikely((afl->last_sync_cycle < afl->queue_cycle ||
                     (!afl->queue_cycle && afl->afl_env.afl_import_first)) &&
